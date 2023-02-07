@@ -14,6 +14,7 @@ import { Server as IOSocket } from 'socket.io';
 /*++++++++++ Middlewares ++++++++++ */
 
 /*++++++++++ Routes ++++++++++ */
+import routes from './routes/index.routes.js';
 
 /*++++++++++ Path ++++++++++ */
 import { dirname, join } from 'path';
@@ -31,11 +32,21 @@ export const createServer = () => {
     //Web Socket
     
     //Server Config
+    //app.use(express.static(absolutePath + '/public'));
+    //app.set('view engine', 'hbs');
+    //app.set('views', (absolutePath + '/public/views'));
+    //hbs.registerPartials(absolutePath + '/public/views/partials');
+    app.use(cors());
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: true }));
+    //app.use(session(config.session));
+    app.use(morgan('dev'));
+    //app.use(passport.initialize());
+    //app.use(passport.session());
+    //app.use(compression());
 
     //Routes
-    app.get('/',(req,res)=>{
-        res.send('HOla Mundo');
-    });
+    app.use(routes);
     
 
     return {

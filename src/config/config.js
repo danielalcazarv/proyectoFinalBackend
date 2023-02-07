@@ -2,8 +2,9 @@ import yargs from 'yargs/yargs';
 import { __filename, __dirname } from '../utils/path.js'
 import connectMongo from 'connect-mongo';
 import { logger } from '../utils/logger.js';
+import mongodbUrl from './mongoDBUrl.js';
 import dotenv from 'dotenv';
-dotenv.config();
+dotenv.config({ path: '../.env' });
 
 //args
 const args = yargs(process.argv.slice(2))
@@ -19,7 +20,7 @@ const args = yargs(process.argv.slice(2))
 
 /*++++++++++ MONGODB ++++++++++ */
 //Persistencia session MongoDb Atlas
-/*const MongoStore = connectMongo.create({
+const MongoStore = connectMongo.create({
     mongoUrl: process.env.MONGODB_ATLAS_URL,
     ttl: 600
 });
@@ -32,7 +33,7 @@ const sessionConfig =  {
     cookie: {
         maxAge : 1000 *60 *10
     }
-};*/
+};
 
 /*++++++++++ Config Gral ++++++++++ */
 export const config = {
@@ -42,16 +43,13 @@ export const config = {
         NODE_ENV: process.env.NODE_ENV || 'development',
         PERS: process.env.PERS || 'MONGODB'
     },
-    atlas: {
-        host: process.env.MONGODB_ATLAS_URL
-    },
     mongoDb: {
-        host: process.env.MONGODB_URL,
+        host: mongodbUrl, //process.env.MONGODB_URL,
         options: {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             serverSelectionTimeoutMS: 5000
         }
     },
-    //session: sessionConfig
+    session: sessionConfig
 };
