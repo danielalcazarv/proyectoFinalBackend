@@ -32,10 +32,12 @@ export const createServer = () => {
     //Web Socket
     
     //Server Config
-    //app.use(express.static(absolutePath + '/public'));
+    app.use(express.static(absolutePath + '/public'));
     //app.set('view engine', 'hbs');
     //app.set('views', (absolutePath + '/public/views'));
-    //hbs.registerPartials(absolutePath + '/public/views/partials');
+    app.set('view engine', 'hbs');
+    app.set('views', (absolutePath + '/src/views'));
+    hbs.registerPartials(absolutePath + '/src/views/partials');
     app.use(cors());
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));

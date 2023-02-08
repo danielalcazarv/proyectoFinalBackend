@@ -1,8 +1,6 @@
 import { createLogger, transports } from 'winston';
 import { __dirname } from './path.js';
 
-
-console.log(__dirname)
 export const logger = createLogger({
     transports: [
         new transports.Console ({ level: 'info'}),

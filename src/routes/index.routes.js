@@ -8,6 +8,6 @@ import productos from './productos.routes.js'
 
 //Configuración de Rutas
 routes.use('/', home);
-routes.use('/productos/', productos);
+routes.use('/api/productos/', productos);
 
 export default routes;
