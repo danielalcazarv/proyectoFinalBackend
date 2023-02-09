@@ -1,10 +1,11 @@
 /*++++++++++ Modulos ++++++++++ */
-import express, { application } from 'express';
+import express from 'express';
 import session from 'express-session';
 import cors from 'cors';
 import morgan from 'morgan';
 import hbs from 'hbs';
 import { config } from './config/config.js'
+import cookieParser from 'cookie-parser';
 import { logger } from './utils/logger.js';
 
 /*++++++++++ Sockets ++++++++++ */
@@ -33,8 +34,6 @@ export const createServer = () => {
     
     //Server Config
     app.use(express.static(absolutePath + '/public'));
-    //app.set('view engine', 'hbs');
-    //app.set('views', (absolutePath + '/public/views'));
     app.set('view engine', 'hbs');
     app.set('views', (absolutePath + '/src/views'));
     hbs.registerPartials(absolutePath + '/src/views/partials');
@@ -43,14 +42,18 @@ export const createServer = () => {
     app.use(express.urlencoded({ extended: true }));
     //app.use(session(config.session));
     app.use(morgan('dev'));
+    //app.use(cookieParser);
     //app.use(passport.initialize());
     //app.use(passport.session());
     //app.use(compression());
+    /*app.use((req, res, next) => { //permite el uso de socket io en Routes
+    req.io = io;
+    return next();
+    });*/
 
     //Routes
     app.use(routes);
     
-
     return {
         listen: port => new Promise ((resolve, reject) => {
             const connectedServer = httpServer.listen(port, ()=> {

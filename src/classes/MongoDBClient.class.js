@@ -17,6 +17,7 @@ class MongoDBClient extends DBClient {
             await this.client.connect(config.mongoDb.host, config.mongoDb.options);
             this.connected = true;
             logger.info('Base de datos conectada');
+            logger.info(`Persistencia: ${config.server.PERS}`);
         } catch (error) {
             const objErr = new CustomError(500, "Error al conectarse a MongoDB", error);
             logger.error(objErr);
