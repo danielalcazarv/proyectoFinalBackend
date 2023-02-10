@@ -3,13 +3,24 @@ import { logger } from '../utils/logger.js';
 
 const DAO = UsuariosDAOFactory.get();
 
-
-///NO ME CASO CON ESTE ESQUEMA TENGO QUE INVENTAR UN CONTROLADOR QUE ME SIRVA YO CONSUMO DATOS DEL DAO NADA MÁS
 class UsuariosController {
     login = async (req, res) => {
         res.render('login');
-    }
+    };
 
+    loginError = async (req,res) => {
+        res.render('login-error');
+    };
+
+    registro = async (req,res) => {
+        res.render('registro');
+    };
+
+    registroError = async (req,res) => {
+        res.render('registro-error');
+    };
+
+    
     /*
     obtenerUsuarios = async (req, res) => {
         try {
@@ -19,7 +30,7 @@ class UsuariosController {
             logger.error(error);
         }
     };
-
+    
     obtenerUsuario = async (req, res) => {
         try {
             let doc = await DAO.listar(req.params.id)
@@ -28,7 +39,7 @@ class UsuariosController {
             logger.error(error);
         }
     };
-
+    
     actualizarUsuario = async (req, res) => {
         try {
             let id = req.params.id;
@@ -39,7 +50,7 @@ class UsuariosController {
             logger.error(error);
         }
     };
-
+    
     guardarUsuario = async (req, res) => {
         try{
             let obj = req.body
@@ -49,7 +60,7 @@ class UsuariosController {
             logger.error(error);
         }
     };
-
+    
     borrarUsuario = async ( req, res) => {
         try{
             let id = req.params.id;

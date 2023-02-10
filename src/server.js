@@ -13,6 +13,7 @@ import { Server as HttpServer } from 'http';
 import { Server as IOSocket } from 'socket.io';
 
 /*++++++++++ Middlewares ++++++++++ */
+import passport from './services/passport.js'
 
 /*++++++++++ Routes ++++++++++ */
 import routes from './routes/index.routes.js';
@@ -40,11 +41,11 @@ export const createServer = () => {
     app.use(cors());
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
-    //app.use(session(config.session));
+    app.use(session(config.session));
     app.use(morgan('dev'));
-    //app.use(cookieParser);
-    //app.use(passport.initialize());
-    //app.use(passport.session());
+    //app.use(cookieParser());
+    app.use(passport.initialize());
+    app.use(passport.session());
     //app.use(compression());
     /*app.use((req, res, next) => { //permite el uso de socket io en Routes
     req.io = io;

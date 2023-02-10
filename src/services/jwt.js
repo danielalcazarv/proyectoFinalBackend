@@ -1,6 +1,6 @@
 import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt';
-//import { UsuariosMongoDBModel } from '../models/UsuariosMongoDB.models.js';
-// 
+import UsuariosMongoDBModel from '../models/UsuariosMongoDB.models.js';
+
 const jwtSecret = process.env.JWT_SECRET;
 const Users = UsuariosMongoDBModel;
 

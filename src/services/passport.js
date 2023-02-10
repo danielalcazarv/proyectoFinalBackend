@@ -3,7 +3,9 @@ import bCrypt from "bcrypt";
 import JWTStrategy from '../services/jwt.js';
 import { logger } from '../utils/logger.js';
 import { Strategy } from "passport-local";
-//import { buscarUsuarios, crearUsuario } from '../controllers/users.controller.js';
+import UsuariosDAOFactory from '../classes/UsuariosDAOFactory.class.js';
+
+const DAO = UsuariosDAOFactory.get();
 const LocalStrategy = Strategy;
 
 /*++++++++++ Serialize & funciones ++++++++++ */
@@ -28,73 +30,65 @@ const generateHashPassword = (password) => {
 };
 
 /*++++++++++ Middlewares ++++++++++ */
-passport.use(
-    'login' ,
-    new LocalStrategy(
-    async (username, password, done) => {
-        try {
-            const user = await buscarUsuarios(username);
-            if (user) {
-                if ( verifyPass(user, password) ) {
-                    return done(null, user);
-                } else {
-                    logger.info("password incorrecto");
-                    return done(null, false);
-                }
-            } else {
-                logger.info(`Usuario ${username} no encontrado`);
+passport.use( 'login', new LocalStrategy(
+    async function (username, password, done){
+        const usuariosDb = await DAO.listarAll()
+        const existeUsuario = usuariosDb.find(x=>x.username == username);
+        
+        if (!existeUsuario) {
+            logger.info('No existe el usuario.');
+            return done(null, false);
+        } else {
+            const match = verifyPass(existeUsuario, password);
+            if (!match){
+                logger.info('La contraseña no coincide.');
                 return done(null, false);
             }
-        } catch (error) {
-            logger.error(error);
-        }   
-    })
-);
+            logger.info('Usuario logueado.');
+            return done(null, existeUsuario);
+        }
+    }
+));
 
 passport.use(
     'signup',
     new LocalStrategy(
-        {
-            passReqToCallback: true,
-        },
+        { passReqToCallback: true },
         async (req, username, password, done) => {
+            const usuariosDb = await DAO.listarAll()
+            let usuarioCreado;
             try {
-                let usuario = await buscarUsuarios(username);
-                let newUser;
-                const { checkPassword } = req.body;;
-                if(usuario) {
-                    logger.info('Usuario existente');
-                    return done (null, false);
-                }else if (password !== checkPassword){
+                const existeUsuario = usuariosDb.find(x=>x.username == username);
+                const { checkPassword } = req.body;
+                if (existeUsuario) {
+                    logger.info('El usuario ya esta registrado');
+                    return done(null, false, { message: 'El usuario ya existe' });
+                } 
+                else if (password !== checkPassword){
                     logger.info('Las contraseñas no coinciden');
                     return done (null, false);                    
-                }else{
-                    logger.info('Pasamos a crear al usuario');
-                    const { 
-                        username, 
-                        password, 
-                        name,
-                        phone,
-                        age,
-                        address,
-                        avatar
-                    } = req.body;
-                    const nuevoUsuario = await crearUsuario({
-                        userEmail: username ,
-                        password: generateHashPassword(password),
-                        name : name ,
-                        phone : phone ,
-                        age : age ,
-                        address : address ,
-                        avatar : avatar
+                } 
+                else {
+                    const { username, password, nombre, telefono } = req.body;
+                    const hashPassword = generateHashPassword(password);
+                    if (!hashPassword) {
+                        logger.info('Error al generar hash de contraseña');
+                        return done(null, false);
+                    }
+                    const usuarioNuevo = await DAO.guardar({
+                        username,
+                        password: hashPassword,
+                        nombre,
+                        telefono
                     });
-                    newUser = await buscarUsuarios(username);
                 }
-                logger.info('usuario creado ');
-                return done(null, newUser);
-                
+                const newDB = await DAO.listarAll()
+                const userWithId= newDB.find(x=>x.username == username);
+                logger.info('Nuevo usuario creado con éxito!');
+                return done(null, userWithId);
             } catch (error) {
-                logger.error( 'Error en el strategy de signup' , error);
+                logger.error('Error en signup', error);
+                return done(error);
             }
         }
     )
