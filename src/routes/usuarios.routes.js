@@ -6,7 +6,7 @@ const controlador = new UsuariosController()
 const routes = Router();
 
 routes.get('/', controlador.login);
-routes.post('/login', passport.authenticate('login', {failureRedirect:'/login-error', successRedirect:'/productos/ofertas'}));//modificar rutas  y safe
+routes.post('/login', passport.authenticate('login', {failureRedirect:'/login-error', successRedirect:'/productos'}));
 routes.get('/login-error', controlador.loginError);
 routes.get('/registro', controlador.registro);
 routes.post('/registro', passport.authenticate('signup', {failureRedirect:'/registro-error', successRedirect:'/productos/ofertas'}));

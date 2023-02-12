@@ -1,4 +1,4 @@
-class ProductosDestacadosDTO {
+class ProductosCategoriaDTO {
     constructor(id, nombre, marca, precio, foto, categoria, oferta){
         this.id = id,
         this.nombre = nombre,
@@ -10,7 +10,7 @@ class ProductosDestacadosDTO {
     };
 
     static desdeProductoDAO(productDAO){
-        return new ProductosDestacadosDTO(
+        return new ProductosCategoriaDTO(
             productDAO.id,
             productDAO.nombre,
             productDAO.marca,
@@ -19,11 +19,11 @@ class ProductosDestacadosDTO {
             productDAO.categoria,
             productDAO.oferta)
     };
-
-    static filtrarOfertas(productDAO){
-        return productDAO.filter(producto => producto.oferta === true)
+    
+    static filtrarCategoria(productDAO, categoria){
+        return productDAO.filter(producto => producto.categoria == categoria )
         .map(producto => this.desdeProductoDAO(producto));
     }
 };
 
-export default ProductosDestacadosDTO;
+export default ProductosCategoriaDTO;
