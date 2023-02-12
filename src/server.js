@@ -5,7 +5,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import hbs from 'hbs';
 import { config } from './config/config.js'
-import cookieParser from 'cookie-parser';
+//import cookieParser from 'cookie-parser';
 import { logger } from './utils/logger.js';
 
 /*++++++++++ Sockets ++++++++++ */
