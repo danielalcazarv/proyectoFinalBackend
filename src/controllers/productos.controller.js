@@ -38,8 +38,6 @@ class ProductosController {
     guardarProducto = async (req, res) => {
         try{
             let obj = req.body
-            console.log(req.body)
-            console.log(obj)
             let doc = await DAO.guardar(obj);
             res.status(200).json({msg:'Producto Agregado', data: doc});
         }catch (error){
