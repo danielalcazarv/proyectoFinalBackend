@@ -31,22 +31,20 @@ class CarritosController{
             const user = req.user;
             const {id, cantidad} = req.query;
             const prodSelected = {id, cantidad};
-            let carts = await DAOCarritos.listarAll();
-            let getProd = await DAOProductos.listar(prodSelected.id);
+            const carts = await DAOCarritos.listarAll();
+            const getProd = await DAOProductos.listar(prodSelected.id);
             const newProd = {producto: getProd, cantidad: parseInt(prodSelected.cantidad)};
             let carrito = CarritoDTO.getCarritoDeUser(carts, user);
             if (carrito){
-                carrito.productos.push(newProd);
+                CarritoDTO.prodRepetido(newProd, carrito);
                 await DAOCarritos.actualizar(carrito.id, carrito);
-                const productsCart = carrito;
                 logger.info(`Se agrega producto al del carrito de ${user.username}.`);
-                res.render('carrito', {productsCart});
+                res.redirect('/carrito');
             }else{
                 await DAOCarritos.guardar({username: user.username, productos:[newProd]})
-                const productsCart = {productos:[newProd]};
                 logger.info(`Carrito de ${user.username} creado con éxito!`);
                 logger.info(`Se agrega producto al del carrito de ${user.username}.`);
-                res.render('carrito', {productsCart});
+                res.redirect('/carrito');
             }
         } catch (error) {
             logger.error(error);

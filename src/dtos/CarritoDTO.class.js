@@ -20,6 +20,17 @@ class CarritoDTO {
     static getCarritoDeUser(carritoDAO, user){
         return carritoDAO.find(carrito => carrito.username === user.username);
     };
+
+    static prodRepetido( newProd, carrito){
+        const productos = carrito.productos;
+        const indice = productos.findIndex(p => p.producto.id === newProd.producto.id);
+        if (indice === -1){
+            productos.push(newProd);
+        }else{
+            productos[indice].cantidad += newProd.cantidad
+        };
+        return carrito;
+    }
 };
 
 export default CarritoDTO;
