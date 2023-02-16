@@ -1,11 +1,10 @@
-import { logger } from "../utils/logger.js"
-
 class CarritoDTO {
-    constructor(id, timestamp, productos, username){
+    constructor(id, timestamp, productos, username, direccion){
         this.id = id,
         this.timestamp = timestamp,
         this.productos = productos,
-        this.username = username
+        this.username = username,
+        this.direccion = direccion
     };
 
     static desdeCarritoDAO(carritoDAO, user){ 
@@ -13,7 +12,8 @@ class CarritoDTO {
             carritoDAO.id,
             carritoDAO.timestamp,
             carritoDAO.productos,
-            user.username
+            user.username,
+            user.direccion
             )
     };
 

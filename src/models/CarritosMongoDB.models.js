@@ -8,6 +8,7 @@ const productosCart = mongoose.Schema({
 const CarritosMongoDBModel = mongoose.model('Carritos', {
     timestamp: {type: Date, default: Date.now},
     username: {type: String, required:true},
+    direccion: {type: String, required: true},
     productos: {
         type: [productosCart],
         required: true,

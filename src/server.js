@@ -13,7 +13,7 @@ import { Server as HttpServer } from 'http';
 import { Server as IOSocket } from 'socket.io';
 
 /*++++++++++ Middlewares ++++++++++ */
-import passport from './services/passport.js'
+import passport from './services/passport.js';
 
 /*++++++++++ Routes ++++++++++ */
 import routes from './routes/index.routes.js';

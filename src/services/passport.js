@@ -69,7 +69,7 @@ passport.use(
                     return done (null, false);                    
                 } 
                 else {
-                    const { username, password, nombre, telefono } = req.body;
+                    const { username, password, nombre, telefono, direccion } = req.body;
                     const hashPassword = generateHashPassword(password);
                     if (!hashPassword) {
                         logger.info('Error al generar hash de contraseña');
@@ -79,7 +79,8 @@ passport.use(
                         username,
                         password: hashPassword,
                         nombre,
-                        telefono
+                        telefono,
+                        direccion
                     });
                 }
                 const newDB = await DAO.listarAll()

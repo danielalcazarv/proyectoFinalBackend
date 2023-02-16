@@ -17,7 +17,7 @@ class CarritosController{
                 logger.info(`Vista del carrito de ${user.username}.`)
                 res.render('carrito', {productsCart}); 
             }else{
-                const newCart = await DAOCarritos.guardar({username: user.username, productos:[]})
+                const newCart = await DAOCarritos.guardar({username: user.username, direccion:user.direccion, productos:[]})
                 logger.info(`Carrito de ${user.username} creado con éxito!`)
                 res.render('carrito', {newCart});
             }

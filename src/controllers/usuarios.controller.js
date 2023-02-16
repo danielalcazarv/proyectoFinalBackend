@@ -21,9 +21,14 @@ class UsuariosController {
         const user = req.user;
         req.logOut(err => {
         const noShow = true
-            res.render('logout', {user, noShow})
+        res.render('logout', {user, noShow});
         })
     };
+
+    perfil = async (req, res) => {
+        const user = req.user;
+        res.render('perfil', {user});
+    }
 };
 
 export default UsuariosController;
