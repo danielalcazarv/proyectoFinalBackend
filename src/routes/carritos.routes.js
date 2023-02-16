@@ -7,7 +7,9 @@ const controlador = new CarritosController();
 
 const routes = Router();
 
-routes.get('/', controlador.verCarrito);
+routes.get('/', auth, controlador.verCarrito);
+routes.get('/add', auth, controlador.addProdCarrito);
+
 
 
 export default routes;

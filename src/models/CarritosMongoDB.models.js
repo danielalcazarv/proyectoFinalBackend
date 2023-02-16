@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const productosCart = mongoose.Schema({
-    producto: {type: Object},
+    producto: {type: Object, unique: true},
     cantidad: {type: Number, min:1, default:1}
 })
 
@@ -10,7 +10,8 @@ const CarritosMongoDBModel = mongoose.model('Carritos', {
     username: {type: String, required:true},
     productos: {
         type: [productosCart],
-        required: true
+        required: true,
+        unique: true
     }
 });
 

@@ -20,8 +20,6 @@ class CarritoDTO {
     static getCarritoDeUser(carritoDAO, user){
         return carritoDAO.find(carrito => carrito.username === user.username);
     };
-
-
 };
 
 export default CarritoDTO;

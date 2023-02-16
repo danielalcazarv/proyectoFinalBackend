@@ -1,0 +1,29 @@
+<div class="align-middle">
+<table class="table table-success table-striped container-layout text-center">
+    <thead>
+        <tr>
+        <th scope="col">Código</th>
+        <th scope="col">Foto</th>
+        <th scope="col">Producto</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Cantidad</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each productsCart.productos}}
+                <tr>
+                    <td scope="row">{{producto.codigo}}</td>
+                    <td>
+                        <img src={{producto.foto}} class="img-thumbnail" style="max-width: 60px ;" alt="Foto de {{producto.nombre}}">
+                    </td>
+                    <td>{{producto.nombre}}</td>
+                    <td>{{producto.precio}}</td>
+                    <td>{{cantidad}}</td>
+                </tr>
+        {{/each}}
+    </tbody>
+</table>
+</div>
+<div class="container mt-3">
+    <a href="/" class="btn btn-success">Ver Centro de Ayuda</a>
+</div>

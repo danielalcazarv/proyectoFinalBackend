@@ -11,7 +11,14 @@
                         <p class="card-text text-center">{{doc.marca}}</p>
                         <p class="card-text text-center">Precio: USD ${{doc.precio}}</p>
                             <div class="container count__custom">
-                                <button class="btn btn-primary">Agregar al Carrito</button>
+                                <form action="/carrito/add" method="get">
+                                    <input type="hidden" name="id" value="{{doc.id}}">
+                                    <p class="card-text text-center">Cantidad:</p>
+                                    <input class="form-control my-2 mx-auto text-center label-width" type="number" name="cantidad" min="1" value="1">
+                                    <div class="text-center">
+                                        <button class="btn btn-primary">Agregar al Carrito</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

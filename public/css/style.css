@@ -42,6 +42,10 @@ input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none; 
     margin: 0; 
 }
+
+.label-width{
+    max-width: 50px;
+}
 /*
 input[type=number] {
     -moz-appearance: textfield;
