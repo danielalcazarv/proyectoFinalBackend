@@ -38,14 +38,42 @@ class CarritosController{
             if (carrito){
                 CarritoDTO.prodRepetido(newProd, carrito);
                 await DAOCarritos.actualizar(carrito.id, carrito);
-                logger.info(`Se agrega producto al del carrito de ${user.username}.`);
+                logger.info(`Se agrega producto al carrito de ${user.username}.`);
                 res.redirect('/carrito');
             }else{
                 await DAOCarritos.guardar({username: user.username, productos:[newProd]})
                 logger.info(`Carrito de ${user.username} creado con éxito!`);
-                logger.info(`Se agrega producto al del carrito de ${user.username}.`);
+                logger.info(`Se agrega producto al carrito de ${user.username}.`);
                 res.redirect('/carrito');
             }
+        } catch (error) {
+            logger.error(error);
+        }
+    };
+
+    delProdCarrito = async (req, res) => {
+        try {
+            const user = req.user;
+            const {id} = req.body;
+            const carts = await DAOCarritos.listarAll();
+            let carrito = CarritoDTO.getCarritoDeUser(carts, user);
+            CarritoDTO.eliminarProducto(carrito, id);
+            await DAOCarritos.actualizar(carrito.id, carrito);
+            logger.info(`Se elimina producto del carrito de ${user.username}.`);
+            res.redirect('/carrito');
+        } catch (error) {
+            logger.error(error);
+        }
+    };
+
+    vaciarCarrito = async (req, res) => {
+        try {
+            const user = req.user;
+            const carts = await DAOCarritos.listarAll();
+            let carrito = CarritoDTO.getCarritoDeUser(carts, user);
+            const carritoVacio = CarritoDTO.desdeCarritoDAO({id: carrito.id, timestamp: carrito.timestamp, productos:[]},user);
+            await DAOCarritos.actualizar(carrito.id, carritoVacio);
+            res.redirect('/carrito');
         } catch (error) {
             logger.error(error);
         }

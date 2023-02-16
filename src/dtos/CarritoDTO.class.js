@@ -8,7 +8,7 @@ class CarritoDTO {
         this.username = username
     };
 
-    static desdeCarritoDAO(carritoDAO, user){ //si agrego más datos como UsuarioDao.Tel me debería servir para las orders
+    static desdeCarritoDAO(carritoDAO, user){ 
         return new CarritoDTO(
             carritoDAO.id,
             carritoDAO.timestamp,
@@ -29,6 +29,11 @@ class CarritoDTO {
         }else{
             productos[indice].cantidad += newProd.cantidad
         };
+        return carrito;
+    };
+
+    static eliminarProducto( carrito, productoId) {
+        carrito.productos = carrito.productos.filter((producto)=> producto.producto.id !== productoId);
         return carrito;
     }
 };
