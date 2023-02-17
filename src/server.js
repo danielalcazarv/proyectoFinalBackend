@@ -11,6 +11,7 @@ import { logger } from './utils/logger.js';
 /*++++++++++ Sockets ++++++++++ */
 import { Server as HttpServer } from 'http';
 import { Server as IOSocket } from 'socket.io';
+import { mensajes } from './sockets/mensajes.socket.js';
 
 /*++++++++++ Middlewares ++++++++++ */
 import passport from './services/passport.js';
@@ -32,6 +33,10 @@ export const createServer = () => {
     const io = new IOSocket (httpServer);
 
     //Web Socket
+    io.on('connection', async socket =>{
+        logger.info('Usuario conectado.')
+        mensajes(socket, io);
+    })
     
     //Server Config
     app.use(express.static(absolutePath + '/public'));
