@@ -11,7 +11,7 @@ routes.get('/', logged, controlador.login);
 routes.post('/login', passport.authenticate('login', {failureRedirect:'/login-error', successRedirect:'/productos'}));
 routes.get('/login-error', controlador.loginError);
 routes.get('/registro', logged, controlador.registro);
-routes.post('/registro', passport.authenticate('signup', {failureRedirect:'/registro-error', successRedirect:'/productos'}));
+routes.post('/registro', passport.authenticate('signup', {failureRedirect:'/registro-error'}), controlador.postRegistro);
 routes.get('/registro-error', controlador.registroError);
 routes.get('/logout', controlador.logOut);
 routes.get('/perfil', auth, controlador.perfil);

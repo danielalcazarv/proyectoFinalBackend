@@ -52,10 +52,6 @@ export const createServer = () => {
     app.use(passport.initialize());
     app.use(passport.session());
     //app.use(compression());
-    /*app.use((req, res, next) => { //permite el uso de socket io en Routes
-    req.io = io;
-    return next();
-    });*/
 
     //Routes
     app.use(routes);
