@@ -13,7 +13,7 @@ class CarritosController{
             let carts = await DAOCarritos.listarAll();
             const carrito = CarritoDTO.getCarritoDeUser(carts, user);
             if(carrito){
-                const productsCart = carrito;
+                const productsCart = CarritoDTO.cacularTotales(carrito);
                 logger.info(`Vista del carrito de ${user.username}.`)
                 res.render('carrito', {productsCart}); 
             }else{

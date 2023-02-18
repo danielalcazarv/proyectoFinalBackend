@@ -35,6 +35,19 @@ class CarritoDTO {
     static eliminarProducto( carrito, productoId) {
         carrito.productos = carrito.productos.filter((producto)=> producto.producto.id !== productoId);
         return carrito;
+    };
+
+    static cacularTotales ( carrito ) {
+        const productos = carrito.productos;
+        productos.forEach((producto) => {
+            const subtotal = producto.producto.precio  * producto.cantidad;
+            producto['subtotal'] = subtotal;
+        });
+        const total = productos.reduce((accumulator, producto) => accumulator + producto.subtotal, 0);
+        return {
+            ...carrito,
+            total: total
+        };
     }
 };
 

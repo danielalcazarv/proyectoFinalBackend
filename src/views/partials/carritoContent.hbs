@@ -1,39 +1,46 @@
 <div class="align-middle">
-<table class="table table-success table-striped container-layout text-center">
-    <thead>
-        <tr>
-        <th scope="col">Código</th>
-        <th scope="col">Foto</th>
-        <th scope="col">Producto</th>
-        <th scope="col">Precio Unitario</th>
-        <th scope="col">Cantidad</th>
-        <th scope="col">Precio Total</th>
-        <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#each productsCart.productos}}
-                <tr>
-                    <td scope="row">{{producto.codigo}}</td>
-                    <td>
-                        <img src={{producto.foto}} class="img-thumbnail" style="max-width: 60px ;" alt="Foto de {{producto.nombre}}">
-                    </td>
-                    <td>{{producto.nombre}}</td>
-                    <td>USD$ {{producto.precio}}</td>
-                    <td>{{cantidad}}</td>
-                    <td>USD$</td>
-                    <td >
-                        <form action="/carrito" method="post">
-                            <input type="hidden" name="id" value="{{producto.id}}">
-                            <button class="btn btn-danger p-0 mx-2">
-                                <span class="material-symbols-outlined">
-                                    close
-                                </span>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-        {{/each}}
-    </tbody>
-</table>
+    <table class="table table-success table-striped container-layout text-center">
+        <thead>
+            <tr>
+            <th scope="col">Código</th>
+            <th scope="col">Foto</th>
+            <th scope="col">Producto</th>
+            <th scope="col">Precio Unitario</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Subtotal</th>
+            <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each productsCart.productos}}
+                    <tr>
+                        <td scope="row">{{producto.codigo}}</td>
+                        <td>
+                            <img src={{producto.foto}} class="img-thumbnail" style="max-width: 60px ;" alt="Foto de {{producto.nombre}}">
+                        </td>
+                        <td>{{producto.nombre}}</td>
+                        <td>USD$ {{producto.precio}}</td>
+                        <td>{{cantidad}}</td>
+                        <td>USD$ {{subtotal}}</td>
+                        <td >
+                            <form action="/carrito" method="post">
+                                <input type="hidden" name="id" value="{{producto.id}}">
+                                <button class="btn btn-danger p-0 mx-2">
+                                    <span class="material-symbols-outlined">
+                                        close
+                                    </span>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <div class="border-top boder-dark bg-success bg-opacity-25 d-flex flex-row-reverse text-center">
+        <p class="my-2 mx-4">
+            <strong>
+                TOTAL A PAGAR: USD$ {{productsCart.total}}
+            </strong>
+        </p>
+    </div>
 </div>
