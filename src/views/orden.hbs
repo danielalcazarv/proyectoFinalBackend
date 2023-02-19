@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Wheelie Bikes</title>
+</head>
+<body>
+    <header>
+        {{> navbar }}
+    </header>
+    <main class="container container-layout">
+        {{#if fail }}
+            {{> ordenFail}}
+        {{else}}
+            <div class="my-2 border-bottom">
+                <h5> Pedido generado exitosamente!</h5>
+                <h5>Pedido nro: {{orden.pedido}}</h5>
+            </div>
+            <div class="my-2 border-bottom">
+                <h6>Datos de Compra</h6>
+            </div>
+            <div class="my-2 container">
+                <p>Entregar a nombre de: <strong>{{user.nombre}}</strong></p>
+                <p>Lugar de entrega: <strong>{{user.direccion}}</strong></p>
+                <p>Teléfono: <strong>{{user.telefono}}</strong></p>
+            </div>
+            <div class="my-2 border-bottom">
+                <h6>Detalle de Pedido</h6>
+            </div>
+            <div class="align-middle">
+                <table class="table table-secondary table-striped container-layout text-center">
+                    <thead>
+                        <tr>
+                        <th scope="col">Código</th>
+                        <th scope="col">Foto</th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Precio Unitario</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each orden.productos}}
+                                <tr>
+                                    <td scope="row">{{producto.codigo}}</td>
+                                    <td>
+                                        <img src={{producto.foto}} class="img-thumbnail" style="max-width: 60px ;" alt="Foto de {{producto.nombre}}">
+                                    </td>
+                                    <td>{{producto.nombre}}</td>
+                                    <td>USD$ {{producto.precio}}</td>
+                                    <td>{{cantidad}}</td>
+                                    <td>USD$ {{subtotal}}</td>
+                                </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                <div class="border-top boder-dark bg-secondary bg-opacity-25 d-flex flex-row-reverse text-center">
+                    <p class="my-2 mx-4">
+                        <strong>
+                            TOTAL USD$ {{orden.total}}
+                        </strong>
+                    </p>
+                </div>
+            </div>
+        {{/if}}
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/index.js"></script>
+</body>
+</html>

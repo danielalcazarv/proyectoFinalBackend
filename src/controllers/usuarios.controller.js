@@ -1,6 +1,9 @@
 import { emailUsuarioNuevo } from "../services/nodemailer.js";
+import OrdenesDAOFactory from '../classes/OrdenesDAOFactory.class.js';
+import OrdenDTO from '../dtos/OrdenDTO.class.js';
 import { logger } from "../utils/logger.js";
 
+const DAOOrdenes = OrdenesDAOFactory.get();
 const noShow = true
 
 class UsuariosController {
@@ -57,7 +60,9 @@ class UsuariosController {
     perfil = async (req, res) => {
         try {
             const user = req.user;
-            res.render('perfil', {user});
+            const ordenes = await DAOOrdenes.listarAll();
+            const userOrder = OrdenDTO.filtrarOrdenesDeUsuario(ordenes, user);
+            res.render('perfil', {user, userOrder});
         } catch (error) {
             logger.error(error);
         }
