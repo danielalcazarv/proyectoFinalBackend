@@ -44,7 +44,7 @@ export const config = {
         PERS: process.env.PERS || 'MONGODB'
     },
     mongoDb: {
-        host: mongodbUrl, //process.env.MONGODB_URL,
+        host: mongodbUrl,
         options: {
             useNewUrlParser: true,
             useUnifiedTopology: true,

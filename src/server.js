@@ -5,7 +5,6 @@ import cors from 'cors';
 import morgan from 'morgan';
 import hbs from 'hbs';
 import { config } from './config/config.js'
-//import cookieParser from 'cookie-parser';
 import { logger } from './utils/logger.js';
 
 /*++++++++++ Sockets ++++++++++ */
@@ -48,10 +47,8 @@ export const createServer = () => {
     app.use(express.urlencoded({ extended: true }));
     app.use(session(config.session));
     app.use(morgan('dev'));
-    //app.use(cookieParser());
     app.use(passport.initialize());
     app.use(passport.session());
-    //app.use(compression());
 
     //Routes
     app.use(routes);

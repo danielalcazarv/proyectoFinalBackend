@@ -48,10 +48,12 @@ export const emailOrdenNueva = async (orden, user) => {
                     <h1>Nueva orden generada:</h1>
                     <hr>
                     <p>
-                        <span style="font-weight: bolder">De: ${orden.nombre}</span>, username: <span style="font-weight: bolder">${user.username}</span>
+                        <span style="font-weight: bolder">De: ${user.nombre}</span>, username: <span style="font-weight: bolder">${user.username}</span>
                     </p>
                     <hr>
-                    <p><span style="text-decoration: underline">Pedido generado:</span> ${orden}</p> 
+                    <p><span style="text-decoration: underline">Pedido generado:</span> ${orden.pedido}</p>
+                    <hr>
+                    <p><span style="text-decoration: underline">Total USD$:</span> ${orden.total}</p> 
                 </html>`,
     };
 

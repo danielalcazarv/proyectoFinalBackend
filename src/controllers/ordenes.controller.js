@@ -2,6 +2,7 @@ import OrdenesDAOFactory from '../classes/OrdenesDAOFactory.class.js';
 import CarritosDAOFactory from '../classes/CarritosDAOFactory.class.js';
 import CarritoDTO from '../dtos/CarritoDTO.class.js';
 import OrdenDTO from '../dtos/OrdenDTO.class.js';
+import { emailOrdenNueva } from "../services/nodemailer.js";
 import { logger } from '../utils/logger.js';
 
 const DAOOrdenes = OrdenesDAOFactory.get();
@@ -33,6 +34,7 @@ class OrdenesController {
                 const carritoVacio = CarritoDTO.desdeCarritoDAO({id: carrito.id, timestamp: carrito.timestamp, productos:[]},user);
                 await DAOOrdenes.guardar(orden);
                 await DAOCarritos.actualizar(carrito.id, carritoVacio);
+                emailOrdenNueva(orden, user);
                 logger.info(`Orden generada Nro de pedido: ${orden.pedido}.`)
                 res.render('orden', {orden, user});
             }else{
