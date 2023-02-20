@@ -1,7 +1,6 @@
 import yargs from 'yargs/yargs';
 import { __filename, __dirname } from '../utils/path.js'
 import connectMongo from 'connect-mongo';
-import { logger } from '../utils/logger.js';
 import mongodbUrl from './mongoDBUrl.js';
 import dotenv from 'dotenv';
 dotenv.config({ path: '../.env' });

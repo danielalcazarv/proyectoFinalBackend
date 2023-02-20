@@ -1,9 +1,9 @@
 /*++++++++++ Modulos ++++++++++ */
-import { config } from './config/config.js';
+import { config } from './src/config/config.js';
 import { createServer } from './server.js';
 import os from 'os';
 import cluster from 'cluster';
-import { logger } from './utils/logger.js';
+import { logger } from './src/utils/logger.js';
 import dotenv from 'dotenv';
 dotenv.config()
 

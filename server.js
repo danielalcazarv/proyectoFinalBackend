@@ -4,25 +4,25 @@ import session from 'express-session';
 import cors from 'cors';
 import morgan from 'morgan';
 import hbs from 'hbs';
-import { config } from './config/config.js'
-import { logger } from './utils/logger.js';
+import { config } from './src/config/config.js'
+import { logger } from './src/utils/logger.js';
 
 /*++++++++++ Sockets ++++++++++ */
 import { Server as HttpServer } from 'http';
 import { Server as IOSocket } from 'socket.io';
-import { mensajes } from './sockets/mensajes.socket.js';
+import { mensajes } from './src/sockets/mensajes.socket.js';
 
 /*++++++++++ Middlewares ++++++++++ */
-import passport from './services/passport.js';
+import passport from './src/services/passport.js';
 
 /*++++++++++ Routes ++++++++++ */
-import routes from './routes/index.routes.js';
+import routes from './src/routes/index.routes.js';
 
 /*++++++++++ Path ++++++++++ */
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const absolutePath = join(__dirname, '..');
+const absolutePath = join(__dirname, '.');
 
 /*++++++++++ Export Server ++++++++++ */
 export const createServer = () => {
