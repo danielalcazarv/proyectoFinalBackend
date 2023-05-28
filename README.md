@@ -26,14 +26,11 @@ La aplicación actualmente se encuentra alojada en un repositorio público de Gi
 ## Video Demo
 Pueden visitar el siguiente link para ver un video del funcionamiento de la página: [Wheelie Bikes](https://drive.google.com/drive/folders/1VbXCBHvpvQ6aWmLA_WgAGZlkk0ukIWuK?usp=sharing)
 
-## Railway
-Link del proyecto: [Wheelie Bikes Railway](https://proyectofinalbackend-dalcazar.up.railway.app/)
-
 ## Offline 
 Actualmente no esta alojado en ningún servidor. 
 
 <h1 align="center">Hola 👋, soy Daniel Alcázar</h1>
-<h3 align="center">Futuro Desarrollador Full Stack -> Actualmente estudiando en CODER HOUSE!</h3>
+<h3 align="center">Futuro Analista de Sistemas -> Actualmente estudiando en ORT Argentna!</h3>
 
 - 🔭 Actualmente creando un sitio web ecommerce [Wheelie Bikes](https://github.com/danielalcazarv/proyectoFinalBackend.git)
 
